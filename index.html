@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <style>
+        body{
+            color:white;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        h1{
+            font-size: 150pt;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="display">00:00:00</h1>
+    <h2 id="target">00:00:00</h1>
+    <div id="form">
+        <input type="number" min="0" max="23" id="iHour" value="0">:
+        <input type="number" min="0" max="59" id="iMin" value="0">:
+        <input type="number" min="0" max="59" id="iSec" value="0">
+        <button onclick="start()">Start</button>
+    </div>
+    <script>
+        function start(){
+            var countDownDate = new Date();
+            countDownDate.setHours(document.getElementById('iHour').value);
+            countDownDate.setMinutes(document.getElementById('iMin').value);
+            countDownDate.setSeconds(document.getElementById('iSec').value);
+            document.getElementById('form').style.display ='none';
+            document.getElementById('target').innerHTML= `${document.getElementById('iHour').value.padStart(2,0)}:${document.getElementById('iMin').value.padStart(2,0)}:${document.getElementById('iSec').value.padStart(2,0)}`;
+            var x = setInterval(function () {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2,0);
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2,0);
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2,0);
+                document.getElementById("display").innerHTML = `${hours}:${minutes}:${seconds}`;
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("display").innerHTML = "VÉGE";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
