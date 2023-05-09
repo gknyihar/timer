@@ -31,6 +31,8 @@
         <button onclick="start()">Start</button>
     </div>
     <script>
+        window.addEventListener('load', init)
+
         function start(){
             var countDownDate = new Date();
             countDownDate.setHours(document.getElementById('iHour').value);
@@ -50,6 +52,13 @@
                     document.getElementById("display").innerHTML = "VÉGE";
                 }
             }, 1000);
+        }
+
+        function init(){
+            var now = new Date();
+            document.getElementById('iHour').value = now.getHours();
+            document.getElementById('iMin').value = now.getMinutes();
+            document.getElementById('iSec').value = now.getSeconds();
         }
     </script>
 </body>
